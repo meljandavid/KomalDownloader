@@ -15,7 +15,7 @@ func (ps *Problemset) MakeProblemset(pagehtml string) {
 			shouldscan := true
 			for ; shouldscan; scanner.Scan() {
 				lines = append(lines, scanner.Text())
-				if strings.Contains(scanner.Text(), "&nbsp;pont") {
+				if strings.Contains(scanner.Text(), "&nbsp;pont)") {
 					shouldscan = false
 				}
 			}
