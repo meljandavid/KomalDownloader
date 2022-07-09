@@ -81,7 +81,7 @@ func (ps Problemset) SavePdf(html string) {
 		log.Fatal(err)
 	}
 
-	filename := fmt.Sprintf("Komal%s%s.pdf", ps.Month, ps.Chategory)
+	filename := fmt.Sprintf("Komal%s%s.pdf", ps.Month, strings.ReplaceAll(ps.Chategory, "/", ""))
 	if err := ioutil.WriteFile(filename, pdfBuffer, 0644); err != nil {
 		log.Fatal(err)
 	}

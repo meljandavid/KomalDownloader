@@ -2,7 +2,6 @@ package utils
 
 import (
 	"bufio"
-	"fmt"
 	"strconv"
 	"strings"
 )
@@ -10,7 +9,7 @@ import (
 func (ps *Problemset) MakeProblemset(pagehtml string) {
 	scanner := bufio.NewScanner(strings.NewReader(pagehtml))
 	for scanner.Scan() {
-		if strings.Contains(scanner.Text(), fmt.Sprintf("id=\"%s", ps.Chategory)) {
+		if strings.Contains(scanner.Text(), "id=\""+ps.Chategory) {
 			var lines []string
 
 			shouldscan := true
@@ -24,7 +23,8 @@ func (ps *Problemset) MakeProblemset(pagehtml string) {
 			task := Task{}
 			task.Id = strings.Split(lines[0], "\"")[1]
 			lastline := lines[len(lines)-1]
-			task.Points, _ = strconv.Atoi(string(lastline[strings.Index(lastline, "(")+1]))
+			task.Points, _ = strconv.Atoi(
+				lastline[strings.Index(lastline, "(")+1 : strings.Index(lastline, "&nbsp")])
 
 			lastdesclineidx := len(lines) - 2
 			if lastdesclineidx >= 0 {

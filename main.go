@@ -12,13 +12,13 @@ func main() {
 	em, pw, m, set := frontend.GetCreds()
 
 	// LOGIN & RETRIEVE PAGE
-	pagehtml := utils.RetrieveHtml(m, em, pw)
+	pages := utils.RetrieveHtml(m, em, pw, set)
 
 	// PROCESS PAGE
 	for _, cht := range set {
 		mm, _ := strconv.Atoi(m)
-		ps := utils.Problemset{Month: utils.Months[mm%100], Tasks: []utils.Task{}, Chategory: cht}
-		ps.MakeProblemset(pagehtml)
+		ps := utils.Problemset{Month: utils.Months[mm], Tasks: []utils.Task{}, Chategory: cht}
+		ps.MakeProblemset(pages[utils.ChategoryToSubject[cht]])
 
 		// HTML FROM THE TEMPLATE
 		html := ps.ToHtml()
