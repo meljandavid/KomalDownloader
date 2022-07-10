@@ -14,7 +14,11 @@ func (ps *Problemset) MakeProblemset(pagehtml string) {
 
 			shouldscan := true
 			for ; shouldscan; scanner.Scan() {
-				lines = append(lines, scanner.Text())
+				line := strings.ReplaceAll(scanner.Text(),
+					"<img src=\"",
+					"<img src=\"https://www.komal.hu")
+
+				lines = append(lines, line)
 				if strings.Contains(scanner.Text(), "&nbsp;pont)") {
 					shouldscan = false
 				}

@@ -17,19 +17,21 @@ func RetrieveHtml(month, em, pw string, set []string) map[string]string {
 	}
 	response, err := http.PostForm("https://www.komal.hu/u", logindata)
 	if err != nil {
-		fmt.Printf("err: %v\n", err)
+		fmt.Printf("ERROR: %v\n", err)
 	}
 
 	bodybytes, err := io.ReadAll(response.Body)
 
 	if err != nil {
-		fmt.Printf("err: %v\n", err)
+		fmt.Printf("ERROR: %v\n", err)
 	}
 
+	fmt.Println()
 	if strings.Contains(string(bodybytes), "beállításaim") {
-		fmt.Println("Sikeres bejelentkezes")
+		fmt.Println("Sikeres bejelentkezés")
+		fmt.Println()
 	} else {
-		fmt.Println("Sikertelen bejelentkezes")
+		fmt.Println("Sikertelen bejelentkezés")
 	}
 
 	subjects := map[string]bool{}
