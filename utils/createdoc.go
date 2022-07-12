@@ -67,15 +67,12 @@ func (ps Problemset) ToHtml() string {
 	return html
 }
 
-func (ps Problemset) SavePdf(html string) {
+func (ps Problemset) SavePdf(html string, ctx context.Context) {
 	// HOST HTML
 	ts := httptest.NewServer(htmlHandler(html))
 	defer ts.Close()
 
 	// SAVE AS PDF
-	ctx, cancel := chromedp.NewContext(context.Background())
-	defer cancel()
-
 	var pdfBuffer []byte
 	if err := chromedp.Run(ctx, htmlToPdfTask(ts.URL, &pdfBuffer)); err != nil {
 		log.Fatal(err)
